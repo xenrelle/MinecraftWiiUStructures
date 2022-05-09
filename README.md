@@ -87,7 +87,7 @@ Pointer: `0x109CD8E4`
 | int       | 0x3BC  | Attack Strength Ticker(?)                                                            | 0x4  |
 | int       | 0x3E0  | Body Rotation?                                                                       | 0x4  |
 | int       | 0x4A8  | ???                                                                                  | 0x4  |
-| ptr       | 0x26C  | '[Inventory](#inventory)' Pointer                                                    | 0x4  |
+| ptr       | 0x5F0  | '[Inventory](#inventory)' Pointer                                                    | 0x4  |
 | int       | 0x600  | No Container Interaction Value (game copies this value to 0x604 to close containers) | 0x4  |
 | ptr?      | 0x604  | Current Container Interacting With                                                   | 0x4  |
 | struct    | 0x608  | ([FoodData](#fooddata))                                                              | 0xC+ |
