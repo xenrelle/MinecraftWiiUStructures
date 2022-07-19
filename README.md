@@ -14,6 +14,10 @@
 # Structs
 > NOTE: This is HIGHLY unfinished and rushed.
 
+> Descriptions suffixed with "(?)" means that I am unsure if that is the actual meaning
+
+> Hint: Add the offset 0x502500 to pointers in IDA to get the actual addresses
+
 ## ItemInstance
 > (Max Size: ???)
 
@@ -59,6 +63,31 @@
 | Type | Offset | Description | Size |
 | ---- | ------ | ----------- | ---- |
 | long | 0x0    | World Seed  | 0x8  |
+
+
+## CMinecraftApp
+> (Max Size: 0x690)
+
+Address: `0x10A2AFC0`
+| Type | Offset | Description                        | Size |
+| ---- | ------ | ---------------------------------- | ---- |
+| bool | 0x184  | Is Game Started                    | 0x1  |
+| byte | 0x185  | === Unused ===                     | 0x1  |
+| bool | 0x186  | Is App Paused                      | 0x1  |
+| int  | 0x1C0  | Gamemode(?)                        | 0x4  |
+| bool | 0x1C4  | Load Saves from Folder             | 0x1  |
+| int  | 0x1CC  | Disconnection Reason               | 0x4  |
+| byte | 0x42D  | Player Colour 1(?)                 | 0x1  |
+| byte | 0x42E  | Player Colour 2(?)                 | 0x1  |
+| byte | 0x42F  | Player Colour 3(?)                 | 0x1  |
+| byte | 0x430  | Player Colour 4(?)                 | 0x1  |
+| byte | 0x431  | Player Colour 5(?)                 | 0x1  |
+| byte | 0x432  | Player Colour 6(?)                 | 0x1  |
+| byte | 0x433  | Player Colour 7(?)                 | 0x1  |
+| byte | 0x434  | Player Colour 8(?)                 | 0x1  |
+| bool | 0x62C  | Reset The Nether(?)                | 0x1  |
+| bool | 0x62D  | Reset The End(?)                   | 0x1  |
+| int  | 0x68C  | Previously-Played Minigame ID      | 0x4  |
 
 
 ## Minecraft
