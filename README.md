@@ -4,10 +4,10 @@
 | ------ | ---------- | ----------------- |
 | bool   | 0x1        | Literally just bytes that only contain 0 or 1 |
 | byte   | 0x1        | Normal Byte (0-255) |
-| short  | 0x2        | Normal Short (0-65535) |
-| int    | 0x4        | Normal Integer (0-4294967295) |
-| long   | 0x8        | Normal Long (0-18446744073709551615) |
-| d-long | 0x10       | Double Long (0-`you get the idea`) |
+| short  | 0x2        | Normal Signed Short (-32768 - 32767) |
+| int    | 0x4        | Normal Signed Integer (-2147483648 - 2147483647) |
+| long   | 0x8        | Normal Signed Long (-9223372036854775808 - 9223372036854775807) |
+| d-long | 0x10       | Double Long (`you get the idea`) |
 | struct | 0x??       | Structures, varies in size |
 | ptr    | 0x4        | Pointer Address |
 
@@ -60,9 +60,20 @@
 ## LevelData
 > (Max Size: ???)
 
-| Type | Offset | Description | Size |
-| ---- | ------ | ----------- | ---- |
-| long | 0x0    | World Seed  | 0x8  |
+| Type | Offset | Description                     | Size |
+| ---- | ------ | ------------------------------- | ---- |
+| long | 0x0    | World Seed                      | 0x8  |
+| bool | 0x81   | Hardcore Mode                   | 0x1  |
+| bool | 0x82   | Commands Allowed                | 0x1  |
+| bool | 0x83   | Initialized                     | 0x1  |
+| int  | 0x84   | Difficulty                      | 0x4  |
+| bool | 0x88   | Difficulty Locked               | 0x1  |
+| int  | 0xA4   | Cloud Height                    | 0x4  |
+| bool | 0xA8   | Using New Sea Lever             | 0x1  |
+| bool | 0xA9   | Has been in Creative previously | 0x1  |
+| bool | 0xAA   | Has Bonus Chest                 | 0x1  |
+| int  | 0xAC   | XZ Size                         | 0x4  |
+| int  | 0xB0   | Nether Scale                    | 0x4  |
 
 
 ## CMinecraftApp
@@ -77,6 +88,7 @@ Address: `0x10A2AFC0`
 | int  | 0x1C0  | Gamemode(?)                        | 0x4  |
 | bool | 0x1C4  | Load Saves from Folder             | 0x1  |
 | int  | 0x1CC  | Disconnection Reason               | 0x4  |
+| bool | 0x268  | Live Link Required(?)              | 0x1  |
 | byte | 0x42D  | Player Colour 1(?)                 | 0x1  |
 | byte | 0x42E  | Player Colour 2(?)                 | 0x1  |
 | byte | 0x42F  | Player Colour 3(?)                 | 0x1  |
@@ -87,6 +99,7 @@ Address: `0x10A2AFC0`
 | byte | 0x434  | Player Colour 8(?)                 | 0x1  |
 | bool | 0x62C  | Reset The Nether(?)                | 0x1  |
 | bool | 0x62D  | Reset The End(?)                   | 0x1  |
+| int  | 0x630  | Current Texture Pack ID            | 0x4  |
 | int  | 0x68C  | Previously-Played Minigame ID      | 0x4  |
 
 
@@ -110,6 +123,7 @@ Pointer: `0x109CD8E4`
 | --------- | ------ | ------------------------------------------------------------------------------------ | ---- |
 | struct    | 0x48   | Duplicate of 0x54(?)                                                                 | 0xC  |
 | struct    | 0x54   | Current Position ([BlockPos](#blockpos))                                             | 0xC  |
+| ptr       | 0xF8   | [Level](#level) Pointer                                                              | 0x4  |
 | int       | 0x1F8  | ???                                                                                  | 0x4  |
 | ptr?      | 0x26C  | Display Name Pointer (i think)                                                       | 0x4  |
 | ptr?      | 0x348  | LivingEntity Pointer(?)                                                              | 0x4  |
