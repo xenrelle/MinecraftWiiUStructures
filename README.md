@@ -29,6 +29,7 @@
 | int? | 0x14   | Item Tag*             | 0x4  |
 | byte | 0x18   | ???                   | 0x1  |
 | int  | 0x1C   | Damage/Data Value     | 0x4  |
+  
 *from reading the disassembly, it seems like this is probably a basic_string
 
 ## Item
