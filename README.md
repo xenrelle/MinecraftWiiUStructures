@@ -14,19 +14,37 @@
 # Structs
 > NOTE: This is HIGHLY unfinished and rushed.
 
-> Descriptions suffixed with "(?)" means that I am unsure if that is the actual meaning
+> Descriptions suffixed with "(?)" means that I am unsure if that is the actual meaning or I haven't really looked into it
 
 > Hint: Add the offset 0x502500 to pointers in IDA to get the actual addresses
 
 ## ItemInstance
 > (Max Size: ???)
 
-| Type | Offset | Description       | Size |
-| ---- | ------ | ----------------- | ---- |
-| int  | 0x8    | Item Amount       | 0x4  |
-| int  | 0x10   | '`Item`' Pointer  | 0x4  |
-| int  | 0x1C   | Damage/Data Value | 0x4  |
+| Type | Offset | Description           | Size |
+| ---- | ------ | --------------------- | ---- |
+| int  | 0x8    | Item Amount           | 0x4  |
+| int  | 0xC    | "Pop Time"?           | 0x4  |
+| int  | 0x10   | [Item](#item) Pointer | 0x4  |
+| int? | 0x14   | Item Tag*             | 0x4  |
+| byte | 0x18   | ???                   | 0x1  |
+| int  | 0x1C   | Damage/Data Value     | 0x4  |
+*from reading the disassembly, it seems like this is probably a basic_string
 
+## Item
+> (Max Size: ???)
+
+| Type | Offset | Description               | Size |
+| ---- | ------ | ------------------------- | ---- |
+| int  | 0x8    | Item Amount               | 0x4  |
+| int  | 0xC    | Max Stack Count           | 0x4  |
+| int  | 0x10   | Max Damage Count          | 0x4  |
+| int? | 0x14   | Item Icon(?)              | 0x4  |
+| int? | 0x18   | Base Item Type(?)         | 0x4  |
+| byte | 0x21   | Is Stacked via Data Value | 0x1  |
+| byte | 0x22   | Can Place in Offhand      | 0x1  |
+| int? | 0x48   | Description ID            | 0x4  |
+| int? | 0x4C   | Use Description ID        | 0x4  |
 
 ## Inventory
 > (Max Size: ???)
@@ -69,7 +87,7 @@
 | int  | 0x84   | Difficulty                      | 0x4  |
 | bool | 0x88   | Difficulty Locked               | 0x1  |
 | int  | 0xA4   | Cloud Height                    | 0x4  |
-| bool | 0xA8   | Using New Sea Lever             | 0x1  |
+| bool | 0xA8   | Using New Sea Level             | 0x1  |
 | bool | 0xA9   | Has been in Creative previously | 0x1  |
 | bool | 0xAA   | Has Bonus Chest                 | 0x1  |
 | int  | 0xAC   | XZ Size                         | 0x4  |
