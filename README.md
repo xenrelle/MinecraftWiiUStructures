@@ -8,13 +8,14 @@
 | int    | 0x4        | Normal Signed Integer (-2147483648 - 2147483647) |
 | long   | 0x8        | Normal Signed Long (-9223372036854775808 - 9223372036854775807) |
 | d-long | 0x10       | Double Long (`you get the idea`) |
+| float  | 0x4        | Floating Point Number (`varies`) |
 | struct | 0x??       | Structures, varies in size |
 | ptr    | 0x4        | Pointer Address |
 
 # Structs
 > NOTE: This is HIGHLY unfinished and rushed.
 
-> Descriptions suffixed with "(?)" means that I am unsure if that is the actual meaning or I haven't really looked into it
+> Descriptions suffixed with "(?)" means that I am unsure if that is the actual meaning or I haven't really looked into it. If that is the case then the descriptions may be a little weird since I pull them straight from the disassembly.
 
 > Hint: Add the offset 0x502500 to pointers in IDA to get the actual addresses
 
@@ -30,22 +31,23 @@
 | byte | 0x18   | ???                   | 0x1  |
 | int  | 0x1C   | Damage/Data Value     | 0x4  |
   
-*from reading the disassembly, it seems like this is probably a basic_string
+*from reading the disassembly, it seems like this is probably a string
 
 ## Item
 > (Max Size: ???)
 
-| Type | Offset | Description               | Size |
-| ---- | ------ | ------------------------- | ---- |
-| int  | 0x8    | Item Amount               | 0x4  |
-| int  | 0xC    | Max Stack Count           | 0x4  |
-| int  | 0x10   | Max Damage Count          | 0x4  |
-| int? | 0x14   | Item Icon(?)              | 0x4  |
-| int? | 0x18   | Base Item Type(?)         | 0x4  |
-| byte | 0x21   | Is Stacked via Data Value | 0x1  |
-| byte | 0x22   | Can Place in Offhand      | 0x1  |
-| int? | 0x48   | Description ID            | 0x4  |
-| int? | 0x4C   | Use Description ID        | 0x4  |
+| Type | Offset | Description                | Size |
+| ---- | ------ | -------------------------- | ---- |
+| int  | 0x8    | Item Amount                | 0x4  |
+| int  | 0xC    | Max Stack Count            | 0x4  |
+| int  | 0x10   | Max Damage Count           | 0x4  |
+| int? | 0x14   | Item Icon(?)               | 0x4  |
+| int? | 0x18   | Base Item Type(?)          | 0x4  |
+| byte | 0x21   | Is Stacked via Data Value  | 0x1  |
+| byte | 0x22   | Can Place in Offhand       | 0x1  |
+| int? | 0x24   | Crafting Remaining Item(?) | 0x4  |
+| int? | 0x48   | Description ID(?)          | 0x4  |
+| int? | 0x4C   | Use Description ID(?)      | 0x4  |
 
 ## Inventory
 > (Max Size: ???)
@@ -142,7 +144,7 @@ Pointer: `0x109CD8E4`
 | --------- | ------ | ------------------------------------------------------------------------------------ | ---- |
 | struct    | 0x48   | Duplicate of 0x54(?)                                                                 | 0xC  |
 | struct    | 0x54   | Current Position ([BlockPos](#blockpos))                                             | 0xC  |
-| ptr       | 0xF8   | [Level](#level) Pointer                                                              | 0x4  |
+| ptr       | 0xF8   | Current [Level](#level) Pointer                                                      | 0x4  |
 | int       | 0x1F8  | ???                                                                                  | 0x4  |
 | ptr?      | 0x26C  | Display Name Pointer (i think)                                                       | 0x4  |
 | ptr?      | 0x348  | LivingEntity Pointer(?)                                                              | 0x4  |
@@ -156,7 +158,7 @@ Pointer: `0x109CD8E4`
 | bool      | 0x6C0  | Is Sleeping                                                                          | 0x1  |
 | int       | 0x6C8  | Sleeping Timer (max 0x64)                                                            | 0x4  |
 | int       | 0x6CC  | Death Fade Timer                                                                     | 0x4  |
-| (idk)     | 0x6E0  | Respawn Position                                                                     | 0x4  |
+| (idk)     | 0x6E0  | Respawn Position                                                                     | 0x?  |
 | bool      | 0x6E4  | Is Respawn Forced                                                                    | 0x1  |
 | byte      | 0x70C  | Portal Wait Time                                                                     | 0x1  |
 | bool      | 0x70D  | Is Currently Flying                                                                  | 0x1  |
