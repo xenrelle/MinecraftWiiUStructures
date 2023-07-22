@@ -49,15 +49,25 @@
 | int? | 0x48   | Description ID(?)          | 0x4  |
 | int? | 0x4C   | Use Description ID(?)      | 0x4  |
 
+## InsomniaComponent
+> (Max Size: 0x10)
+
+| Type  | Offset | Description                                         | Size |
+| ----- | ------ | --------------------------------------------------- | ---- |
+| ptr   | 0x0    | Pointer to the LivingEntity this is related to      | 0x4  |
+| int   | 0x4    | Ticks Since Last Sleep                              | 0x4  |
+| float | 0x8    | ??? (seems to always be 3.0, MAYBE amount of days?) | 0x4  |
+| int   | 0xC    | Ticks Until Insomnia Occurs                         | 0x4  |
+
 ## Inventory
 > (Max Size: ???)
 
-| Type | Offset | Description      | Size |
-| ---- | ------ | ---------------- | ---- |
-| int  | 0x38    | ???             | 0x4  |
-| int  | 0x3C    | Max Slots Count | 0x4  |
-| int  | 0x40    | ???             | 0x4  |
-| int  | 0x44    | ???             | 0x4  |
+| Type | Offset  | Description      | Size |
+| ---- | ------- | ---------------- | ---- |
+| int  | 0x38    | ???              | 0x4  |
+| int  | 0x3C    | Max Slots Count  | 0x4  |
+| int  | 0x40    | ???              | 0x4  |
+| int  | 0x44    | ???              | 0x4  |
 
 
 ## Level
@@ -149,37 +159,64 @@ Pointer: `0x109CD8E4`
 | ptr?      | 0x26C  | Display Name Pointer (i think)                                                       | 0x4  |
 | ptr?      | 0x348  | LivingEntity Pointer(?)                                                              | 0x4  |
 | int       | 0x3BC  | Attack Strength Ticker(?)                                                            | 0x4  |
-| int       | 0x3E0  | Body Rotation?                                                                       | 0x4  |
-| int       | 0x4A8  | ???                                                                                  | 0x4  |
+| int       | 0x3E0  | Body Rotation                                                                        | 0x4  |
+| int       | 0x3E4  | Duplicate of 0x3E0(?)                                                                | 0x4  |
+| int       | 0x3E8  | Head Rotation                                                                        | 0x4  |
+| int       | 0x3EC  | Duplicate of 0x3E8(?)                                                                | 0x4  |
+| ptr       | 0x4A8  | '[InsomniaComponent](#insomniacomponent)' Pointer                                    | 0x4  |
 | ptr       | 0x5F0  | '[Inventory](#inventory)' Pointer                                                    | 0x4  |
 | int       | 0x600  | No Container Interaction Value (game copies this value to 0x604 to close containers) | 0x4  |
 | ptr?      | 0x604  | Current Container Interacting With                                                   | 0x4  |
-| struct    | 0x608  | ([FoodData](#fooddata))                                                              | 0xC+ |
+| struct    | 0x608  | '[FoodData](#fooddata)' Structure                                                    | 0x14 |
 | bool      | 0x6C0  | Is Sleeping                                                                          | 0x1  |
 | int       | 0x6C8  | Sleeping Timer (max 0x64)                                                            | 0x4  |
 | int       | 0x6CC  | Death Fade Timer                                                                     | 0x4  |
-| (idk)     | 0x6E0  | Respawn Position                                                                     | 0x?  |
+| int?      | 0x6E0  | Respawn Position                                                                     | 0x4? |
 | bool      | 0x6E4  | Is Respawn Forced                                                                    | 0x1  |
-| byte      | 0x70C  | Portal Wait Time                                                                     | 0x1  |
-| bool      | 0x70D  | Is Currently Flying                                                                  | 0x1  |
-| byte/bool | 0x70E  | ???                                                                                  | 0x1  |
-| bool      | 0x70F  | Is allowed to use Command Blocks                                                     | 0x1  |
-| bool      | 0x710  | Is allowed to build                                                                  | 0x1  |
+| struct    | 0x70C  | '[Abilities](#abilities)' Structure                                                  | 0x10 |
 | int       | 0x71C  | Current XP Level                                                                     | 0x4  |
 | int       | 0x720  | Current Raw XP Amount                                                                | 0x4  |
+| float     | 0x724  | Current XP Bar Fullness                                                              | 0x4  |
+| int?      | 0x728  | ???                                                                                  | 0x4  |
+| int?      | 0x72C  | ???                                                                                  | 0x4  |
 | int       | 0x730  | Enchantment Seed                                                                     | 0x4  |
+| float     | 0x734  | Air Speed (can be modified, default is usually 0.02)                                 | 0x4  |
+| ptr       | 0x738  | 'ItemCooldowns' Pointer                                                              | 0x4  |
+| int?      | 0x73C  | ???                                                                                  | 0x4  |
+| bool      | 0x760  | IsReducedDebugInfo(???)                                                              | 0x1  |
+| byte[]    | 0x761  | ???                                                                                  | 0x3  |
+| ptr?      | 0x764  | Current Held Item                                                                    | 0x4  |
+| ptr?      | 0x768  | Current Held Item 2(?)                                                               | 0x4  |
+| int?      | 0x76C  | Something to do with "hand slots"                                                    | 0x4  |
+| int?      | 0x770  | Something to do with "hand slots"                                                    | 0x4  |
+| byte      | 0x781  | ???                                                                                  | 0x1  |
+| byte[]    | 0x782  | ???                                                                                  | 0x2  |
 | d-long    | 0x784  | UUID                                                                                 | 0x10 |
 | d-long    | 0x798  | UUID (Duplicate? I'd rely on the previous one though)                                | 0x10 |
 | int       | 0x7D8  | Skin ID from Default Skin Pack (1 = steve, 2 = tennis steve, etc.) (Max 0x12)        | 0x4  |
 | int       | 0x7DC  | Current Equipped Skin ID (custom skins are in hex and ORed with 0x80000000)          | 0x4  |
 | int       | 0x7E0  | Current Equipped Cape ID (same format as skin id)                                    | 0x4  |
 | int       | 0x7E4  | Player Colour Index (Max 0x7, idk why it isn't just a byte lmao)                     | 0x4  |
-| int       | 0x7E8  | ???                                                                                  | 0x4  |
-| byte      | 0x7EC  | ???                                                                                  | 0x1  |
+| int       | 0x7E8  | Unused(?)                                                                            | 0x4  |
+| byte      | 0x7EC  | Something about Minigames? look into 0x0270F0BC                                      | 0x1  |
+| int       | 0x7F0  | Something about Minigame Points? look into 0x027112DC                                | 0x4  |
+| int       | 0x7F4  | Something about Minigame Checkpoints (glide?)? look into 0x02711638                  | 0x4  |
+| byte      | 0x7F8  | ???                                                                                  | 0x1  |
+| byte[]    | 0x7F9  | ???                                                                                  | 0x3  |
 | int       | 0x7FC  | ???                                                                                  | 0x4  |
-| int       | 0x808  | ???                                                                                  | 0x4  |
+| int       | 0x800  | AdditionalModelParts(?) see 0x02728EC8                                               | 0x4  |
+| byte      | 0x804  | Related to 0x800, see 0x0272B9D0                                                     | 0x1  |
+| byte      | 0x805  | Related to 0x800, see 0x0272B9D8                                                     | 0x1  |
+| byte[]    | 0x806  | ???                                                                                  | 0x2  |
+| int       | 0x808  | Something related to round ending/camera??? look into 0x0270F76C                     | 0x4  |
 | ptr(?)    | 0x80C  | Current Entity Spectating                                                            | 0x4  |
+| int       | 0x810  | Something related to 0x80C and camera? look into 0x0272BDE0                          | 0x4  |
 | bool      | 0x814  | Is Position Locked                                                                   | 0x1  |
+| bool      | 0x815  | Will Take Glide Damage                                                               | 0x1  |
+| byte[]    | 0x816  | Unused(?)                                                                            | 0x2  |
+| float     | 0x818  | Lift Force Modifier(?)                                                               | 0x4  |
+| int       | 0x81C  | Unused(?)                                                                            | 0x4  |
+| float     | 0x820  | dupe of 0x120(?????) **HIGHLY** unsure, only ever mentioned here: 0x0270F1A0         | 0x4  |
 | float     | 0x854  | Underwater Light Level                                                               | 0x4  |
 | float     | 0x858  | Underwater Vision Scale                                                              | 0x4  |
 | bool      | 0x85C  | Has Eaten Dried Kelp Before (used for Castaway achievement)                          | 0x1  |
@@ -188,16 +225,33 @@ Pointer: `0x109CD8E4`
 | byte      | 0x85F  | ???                                                                                  | 0x1  |
 | int       | 0x860  | ???                                                                                  | 0x4  |
 | int       | 0x864  | ???                                                                                  | 0x4  |
-
-
+ 
+ 
 ## FoodData
-> (Max Size: ???)
+> (Max Size: 0x14)
 
 | Type  | Offset | Description            | Size |
 | ----- | ------ | ---------------------- | ---- |
 | int   | 0x0    | Current Hunger Amount  | 0x4  |
 | float | 0x4    | Current Saturation     | 0x4  |
 | int   | 0x8    | Current Exhaustion     | 0x4  |
+| int   | 0xC    | ???                    | 0x4  |
+| int   | 0x10   | Last Hunger Amount     | 0x4  | 
+
+
+## Abilities
+> (Max Size: 0x10)
+
+| Type   | Offset | Description                                  | Size |
+| ------ | ------ | -------------------------------------------- | ---- |
+| bool   | 0x0    | Is Invulnerable (doesn't seem to work)       | 0x1  |
+| bool   | 0x1    | Currently Flying                             | 0x1  |
+| bool   | 0x2    | Can Fly (not related to the host permission) | 0x1  |
+| bool   | 0x3    | Can InstaBuild(???, doesn't do anything)     | 0x1  |
+| bool   | 0x4    | ??? (seems to always be set to `1`)          | 0x1  |
+| byte[] | 0x5    | Unused                                       | 0x3  |
+| float  | 0x8    | Current Flying Speed (doesn't seem to work)  | 0x4  |
+| float  | 0xC    | Current Walking Speed (only changes FOV)     | 0x4  |
 
 
 ## BlockPos
