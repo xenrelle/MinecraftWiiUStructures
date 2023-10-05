@@ -94,8 +94,10 @@
 
 | Type | Offset | Description                     | Size |
 | ---- | ------ | ------------------------------- | ---- |
+| ptr  | 0x0    | Biomes Pointer                  | 0x4  |
 | ptr  | 0xC    | ElementStorage Pointer          | 0x4  |
 | ptr  | 0x194  | Current [Level](#level) Pointer | 0x4  |
+| ptr  | 0x1A8  | HeightMap Pointer               | 0x4  |
 | int  | 0x1B8  | Chunk Pos X                     | 0x4  |
 | int  | 0x1BC  | Chunk Pos Z                     | 0x4  |
 | bool | 0x1C0  | Has Gaps To Check(?)            | 0x1  |
@@ -171,31 +173,49 @@ Pointer: `0x109CD8E4`
 | ptr  | 0x250  | '`ClientMasterGameMode`' Pointer   | 0x4  |
 
 
-## Player
-> Inherits **Entity**  
-> (Max Size: 0x868)
+## Entity
+> (Max Size: 0x350)
 
 | Type      | Offset | Description                                                                          | Size |
 | --------- | ------ | ------------------------------------------------------------------------------------ | ---- |
 | int       | 0xC    | Entity ID                                                                            | 0x4  |
 | struct    | 0x48   | Duplicate of 0x54(?)                                                                 | 0xC  |
 | struct    | 0x54   | Current Position ([BlockPos](#blockpos))                                             | 0xC  |
+| ptr       | 0xF0   | Current Entity Riding Pointer                                                        | 0x4  |
 | ptr       | 0xF8   | Current [Level](#level) Pointer                                                      | 0x4  |
+| float     | 0x1D8  | Step Height                                                                          | 0x4  |
 | bool      | 0x1EC  | Is in Water                                                                          | 0x1  |
 | bool      | 0x1ED  | Is Head in Water                                                                     | 0x1  |
 | int       | 0x1F0  | Invulnerability Frames in Ticks                                                      | 0x4  |
 | bool      | 0x1F5  | Is Immune to Fire                                                                    | 0x1  |
 | int       | 0x1F8  | ???                                                                                  | 0x4  |
 | ptr?      | 0x26C  | Display Name Pointer (i think)                                                       | 0x4  |
-| ptr?      | 0x348  | LivingEntity Pointer(?)                                                              | 0x4  |
+| ptr?      | 0x348  | LivingEntity Pointer(???, could be wrong)                                            | 0x4  |
+
+
+## LivingEntity
+> Inherits **Entity**
+> (Max Size: 0x5F0)
+
+| Type      | Offset | Description                                                                          | Size |
+| --------- | ------ | ------------------------------------------------------------------------------------ | ---- |
 | int       | 0x3BC  | Attack Strength Ticker(?)                                                            | 0x4  |
 | int       | 0x3E0  | Body Rotation                                                                        | 0x4  |
 | int       | 0x3E4  | Duplicate of 0x3E0(?)                                                                | 0x4  |
 | int       | 0x3E8  | Head Rotation                                                                        | 0x4  |
 | int       | 0x3EC  | Duplicate of 0x3E8(?)                                                                | 0x4  |
+| bool      | 0x4A4  | Currently Jumping                                                                    | 0x1  |
 | ptr       | 0x4A8  | '[InsomniaComponent](#insomniacomponent)' Pointer                                    | 0x4  |
+
+
+## Player
+> Inherits **LivingEntity**  
+> (Max Size: 0x868)
+
+| Type      | Offset | Description                                                                          | Size |
+| --------- | ------ | ------------------------------------------------------------------------------------ | ---- |
 | ptr       | 0x5F0  | '[Inventory](#inventory)' Pointer                                                    | 0x4  |
-| int       | 0x600  | InventoryMenu                                                                        | 0x4  |
+| ptr       | 0x600  | InventoryMenu Pointer                                                                | 0x4  |
 | ptr?      | 0x604  | Current Container Interacting With                                                   | 0x4  |
 | struct    | 0x608  | '[FoodData](#fooddata)' Structure                                                    | 0x14 |
 | bool      | 0x6C0  | Is Sleeping                                                                          | 0x1  |
@@ -279,6 +299,17 @@ Pointer: `0x109CD8E4`
 | int   | 0x8    | Current Exhaustion     | 0x4  |
 | int   | 0xC    | ???                    | 0x4  |
 | int   | 0x10   | Last Hunger Amount     | 0x4  | 
+  
+
+## FoodItem
+> (Max Size: 0x8C)
+
+| Type  | Offset | Description                           | Size |
+| ----- | ------ | ------------------------------------- | ---- |
+| bool  | 0x80   | Is Meat (used for feeding wolves)     | 0x1  |
+| bool  | 0x81   | Can Eat Even If Full?                 | 0x1  |
+| bool  | 0x82   | Faster Eat Duration (dried kelp only) | 0x1  |
+| byte  | 0x83   | Unused                                | 0x1  |
 
 
 ## Player Privileges
